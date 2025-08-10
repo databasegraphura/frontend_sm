@@ -1,0 +1,173 @@
+/* Sidebar Styles */
+.sidebar {
+  width: 270px;
+  height: 100vh;
+  background: linear-gradient(180deg, #3b5998 0%, #4169E1 50%, #5a7bc8 100%);
+  color: #ffffff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* Added a wrapper for content to manage scrolling and layout */
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+
+  /* Custom scrollbar for a cleaner look */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+}
+
+/* Logo Section */
+.logo-section {
+  padding: 25px 20px;
+  text-align: center;
+  flex-shrink: 0;
+  /* Prevents this section from shrinking */
+}
+
+.logo-image {
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Profile Section */
+.profile-section {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #ffffff;
+  overflow: hidden;
+  /* Ensures avatar image fits */
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info .name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.profile-info .role {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+
+/* Navigation */
+.nav {
+  flex-grow: 1;
+  /* Allows this section to fill available space */
+  padding: 15px 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 25px;
+  margin: 2px 0;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-left-color 0.2s ease;
+  border-left: 4px solid transparent;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-left-color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-icon {
+  margin-right: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.nav-link.active .nav-label {
+  font-weight: 600;
+}
+
+/* Logout Section */
+.logout-section {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.logout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.logout-button .nav-label {
+  font-weight: 600;
+}
