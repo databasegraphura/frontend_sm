@@ -19,7 +19,7 @@ const TotalProjects = () => {
       }
 
       try {
-        const apiUrl = `${import.meta.env.VITE_API_URL}/api/projects`;
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/projects`;
         const response = await fetch(apiUrl, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -151,7 +151,7 @@ const AssignTaskModal = ({ project, onClose }) => {
     const fetchEmployees = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const apiUrl = `${import.meta.env.VITE_API_URL}/api/users?role=executive&role=team_lead`;
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/users?role=executive&role=team_lead`;
         const response = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await response.json();
         setEmployees(data.data.users || []);

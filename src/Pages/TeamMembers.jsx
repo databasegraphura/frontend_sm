@@ -34,7 +34,7 @@ const TeamMembers = () => {
       return;
     }
     try {
-      const apiUrl = `${process.env.REACT_APP_API_URL}/api/users`;
+      const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/users`;
       const response = await fetch(apiUrl, {
         headers: { 'Authorization': `Bearer ${token}` }
       });

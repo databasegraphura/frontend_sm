@@ -17,7 +17,7 @@ const TransferDataToFDBK = () => {
       }
 
       try {
-        const apiUrl = `${process.env.REACT_APP_API_URL}/api/received-data`;
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/received-data`;
         const response = await fetch(apiUrl, {
           headers: { 'Authorization': `Bearer ${token}` }
         });

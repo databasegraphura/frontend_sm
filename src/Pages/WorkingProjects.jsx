@@ -17,7 +17,7 @@ const WorkingProjects = () => {
       }
 
       try {
-        const apiUrl = `${process.env.REACT_APP_API_URL}/api/projects?status=Current`;
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/projects?status=Current`;
         const response = await fetch(apiUrl, {
           headers: { 'Authorization': `Bearer ${token}` }
         });

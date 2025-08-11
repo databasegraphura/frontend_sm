@@ -26,8 +26,8 @@ const TeamReport = () => {
 
       try {
         const [reportRes, leadersRes] = await Promise.all([
-          fetch(`${process.env.REACT_APP_API_URL}/api/reports/team-report`, { headers: { 'Authorization': `Bearer ${token}` } }),
-          fetch(`${process.env.REACT_APP_API_URL}/api/users?role=team_lead`, { headers: { 'Authorization': `Bearer ${token}` } })
+          fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/api/reports/team-report`, { headers: { 'Authorization': `Bearer ${token}` } }),
+          fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/api/users?role=team_lead`, { headers: { 'Authorization': `Bearer ${token}` } })
         ]);
 
         if (!reportRes.ok) throw new Error('Failed to fetch team report.');

@@ -66,6 +66,9 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
     setError('');
 
     try {
+      // console.log(import.meta.env.VITE_REACT_APP_API_URL);
+      // console.log("Test var:", import.meta.env.VITE_TEST_VAR);
+
       const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/auth/login`;
 
       const response = await fetch(apiUrl, {
