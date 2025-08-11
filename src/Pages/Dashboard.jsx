@@ -11,7 +11,6 @@ const StatCard = ({ title, value, icon, color }) => (
   </div>
 );
 
-// This component renders the SVG icons
 const Icon = ({ type }) => {
   const icons = {
     folder: (
@@ -59,7 +58,20 @@ const Icon = ({ type }) => {
 };
 
 const Dashboard = () => {
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState({
+    totalProjects: 0,
+    currentProjects: 0,
+    completedProjects: 0,
+    remainingProjects: 0,
+    totalEmployees: 0,
+    totalTeamLeads: 0,
+    totalIncome: 0,
+    lastMonthIncome: 0,
+    totalClientsReceived: 0,
+    delayedProjects: 0,
+    feedbackDeptTotalIncome: 0,
+    totalImportedData: 0
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -87,8 +99,8 @@ const Dashboard = () => {
           throw new Error(errorData.message || `HTTP error! Status: ${response.status}`);
         }
 
-        const responseData  = await response.json();
-        setData(responseData.data);
+        const responseData = await response.json();
+        setStats(prev => ({ ...prev, ...responseData.data }));
       } catch (err) {
         setError(err.message);
       } finally {
@@ -103,36 +115,30 @@ const Dashboard = () => {
     return <div>Loading Dashboard...</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  if (!stats) {
-    return <div>No dashboard data available.</div>;
-  }
-
   return (
     <div>
+      {error && <div>{error}</div>}
+
       <h1>Dashboard</h1>
 
       <div>
-        <StatCard title="TOTAL PROJECTS" value={stats.totalProjects || 0} icon={<Icon type="folder" />} color="blue" />
-        <StatCard title="CURRENT PROJECTS" value={stats.currentProjects || 0} icon={<Icon type="chart" />} color="green" />
-        <StatCard title="COMPLETED PROJECTS" value={stats.completedProjects || 0} icon={<Icon type="check" />} color="cyan" />
-        <StatCard title="REMAINING PROJECTS" value={stats.remainingProjects || 0} icon={<Icon type="refresh" />} color="orange" />
+        <StatCard title="TOTAL PROJECTS" value={stats.totalProjects} icon={<Icon type="folder" />} color="blue" />
+        <StatCard title="CURRENT PROJECTS" value={stats.currentProjects} icon={<Icon type="chart" />} color="green" />
+        <StatCard title="COMPLETED PROJECTS" value={stats.completedProjects} icon={<Icon type="check" />} color="cyan" />
+        <StatCard title="REMAINING PROJECTS" value={stats.remainingProjects} icon={<Icon type="refresh" />} color="orange" />
 
-        <StatCard title="TOTAL EMPLOYEES" value={stats.totalEmployees || 0} icon={<Icon type="users" />} color="blue" />
-        <StatCard title="TOTAL TLS" value={stats.totalTeamLeads || 0} icon={<Icon type="clipboard" />} color="green" />
-        <StatCard title="TOTAL INCOME" value={stats.totalIncome || 0} icon={<Icon type="rupee" />} color="cyan" />
-        <StatCard title="LAST MONTH INCOME" value={stats.lastMonthIncome || 0} icon={<Icon type="rupee" />} color="orange" />
+        <StatCard title="TOTAL EMPLOYEES" value={stats.totalEmployees} icon={<Icon type="users" />} color="blue" />
+        <StatCard title="TOTAL TLS" value={stats.totalTeamLeads} icon={<Icon type="clipboard" />} color="green" />
+        <StatCard title="TOTAL INCOME" value={stats.totalIncome} icon={<Icon type="rupee" />} color="cyan" />
+        <StatCard title="LAST MONTH INCOME" value={stats.lastMonthIncome} icon={<Icon type="rupee" />} color="orange" />
       </div>
 
       <h2>Feedback Department</h2>
       <div>
-        <StatCard title="TOTAL CLIENT RECEIVED" value={stats.totalClientsReceived || 0} icon={<Icon type="folder" />} color="blue" />
-        <StatCard title="DELAY PROJECTS" value={stats.delayedProjects || 0} icon={<Icon type="refresh" />} color="green" />
-        <StatCard title="TOTAL INCOME" value={stats.feedbackDeptTotalIncome || 0} icon={<Icon type="rupee" />} color="cyan" />
-        <StatCard title="TOTAL IMPORT DATA" value={stats.totalImportedData || 0} icon={<Icon type="transfer" />} color="orange" />
+        <StatCard title="TOTAL CLIENT RECEIVED" value={stats.totalClientsReceived} icon={<Icon type="folder" />} color="blue" />
+        <StatCard title="DELAY PROJECTS" value={stats.delayedProjects} icon={<Icon type="refresh" />} color="green" />
+        <StatCard title="TOTAL INCOME" value={stats.feedbackDeptTotalIncome} icon={<Icon type="rupee" />} color="cyan" />
+        <StatCard title="TOTAL IMPORT DATA" value={stats.totalImportedData} icon={<Icon type="transfer" />} color="orange" />
       </div>
     </div>
   );
