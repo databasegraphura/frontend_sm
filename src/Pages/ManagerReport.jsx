@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ManagerReport.css';
+// import './ManagerReport.css';
 
 const StatCard = ({ label, value, icon, color }) => (
   <div className={`stat-card ${color}`}>

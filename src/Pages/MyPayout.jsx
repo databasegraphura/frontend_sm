@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './MyPayout.css';
+// import './MyPayout.css';
 
 const MyPayout = () => {
     const [payouts, setPayouts] = useState([]);

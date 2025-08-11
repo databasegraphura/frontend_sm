@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Logout.css';
+// import './Logout.css';
 
 const Logout = () => {
   const [timeLeft, setTimeLeft] = useState(10);
