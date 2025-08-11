@@ -19,7 +19,7 @@ const TotalProjects = () => {
       }
 
       try {
-        const apiUrl = `${process.env.REACT_APP_API_URL}/api/projects`;
+        const apiUrl = `${import.meta.env.VITE_API_URL}/api/projects`;
         const response = await fetch(apiUrl, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -86,6 +86,7 @@ const TotalProjects = () => {
 
           <div className={`project-content ${expandedProjects[project._id] ? 'expanded' : ''}`}>
             <div className="client-form">
+              {/* Form fields... */}
               <div className="form-group"><label>Client Name</label><input type="text" value={project.clientName || ''} readOnly /></div>
               <div className="form-group"><label>Designation</label><input type="text" value={project.designation || ''} readOnly /></div>
               <div className="form-group"><label>Contact No.</label><input type="tel" value={project.contactNumber || ''} readOnly /></div>
@@ -150,7 +151,7 @@ const AssignTaskModal = ({ project, onClose }) => {
     const fetchEmployees = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const apiUrl = `${process.env.REACT_APP_API_URL}/api/users?role=executive&role=team_lead`;
+        const apiUrl = `${import.meta.env.VITE_API_URL}/api/users?role=executive&role=team_lead`;
         const response = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await response.json();
         setEmployees(data.data.users || []);
@@ -170,7 +171,7 @@ const AssignTaskModal = ({ project, onClose }) => {
     const tasksToAssign = Object.entries(taskAssignments).map(([name, userId]) => ({ name, userId }));
 
     try {
-      const apiUrl = `${process.env.REACT_APP_API_URL}/api/projects/${project._id}/assign-task`;
+      const apiUrl = `${import.meta.env.VITE_API_URL}/api/projects/${project._id}/assign-task`;
       await fetch(apiUrl, {
         method: 'PATCH',
         headers: {
@@ -198,7 +199,7 @@ const AssignTaskModal = ({ project, onClose }) => {
           <table className="service-details-table">
             <thead><tr><th>Service Name</th><th>Assign to</th></tr></thead>
             <tbody>
-              {project.serviceName.split(',').map(name => name.trim()).map((serviceName, idx) => (
+              {(project.serviceName || '').split(',').map(name => name.trim()).map((serviceName, idx) => (
                 <tr key={idx}>
                   <td>{serviceName}</td>
                   <td>

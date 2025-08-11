@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import './Auth.css';
+import './Auth.css';
 
 const LoginPage = ({ onLogin }) => {
   const [isLoginView, setIsLoginView] = useState(true);
 
   return (
-    <div className="auth-page">
+    <div className="auth-page"> 
       <div className="auth-container">
         <div className="auth-sidebar">
           <div className="auth-sidebar-header">

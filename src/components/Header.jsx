@@ -1,41 +1,61 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Header.css';
 
-const Header = () => {
-    return (
-        <header style={styles.header}>
-            <h1 style={styles.title}>Renu Sharma Foundation</h1>
-            <nav style={styles.nav}>
-                <a href="/" style={styles.link}>Home</a>
-                <a href="/about" style={styles.link}>About</a>
-                <a href="/projects" style={styles.link}>Projects</a>
-                <a href="/contact" style={styles.link}>Contact</a>
-            </nav>
-        </header>
-    );
-};
+const Header = ({ onToggleSidebar, activeButton, onHeaderButtonClick }) => {
+  const navigate = useNavigate();
 
-const styles = {
-    header: {
-        background: '#1976d2',
-        color: '#fff',
-        padding: '16px 32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    title: {
-        margin: 0,
-        fontSize: '1.8rem'
-    },
-    nav: {
-        display: 'flex',
-        gap: '20px'
-    },
-    link: {
-        color: '#fff',
-        textDecoration: 'none',
-        fontSize: '1rem'
-    }
+  const handleButtonClick = (buttonId, path) => {
+    onHeaderButtonClick(buttonId);
+    setTimeout(() => {
+      navigate(path);
+    }, 200);
+  };
+
+  const handleProfileClick = () => {
+    navigate('/edit-profile');
+  };
+
+  return (
+    <header className="header">
+      <button className="sidebar-toggle" onClick={onToggleSidebar}>
+        <span />
+        <span />
+        <span />
+      </button>
+      
+      <div className="header-actions">
+        <button 
+          className={`action-btn ${activeButton === 'proposals-btn' ? 'active' : ''}`}
+          onClick={() => handleButtonClick('proposals-btn', '/proposals')}
+        >
+          Proposals <span className="btn-badge">5</span>
+        </button>
+        
+        <button 
+          className={`action-btn ${activeButton === 'custom-plan-btn' ? 'active' : ''}`}
+          onClick={() => handleButtonClick('custom-plan-btn', '/custom-plan')}
+        >
+          Custom Plan <span className="btn-badge">3</span>
+        </button>
+        
+        <button 
+          className={`action-btn ${activeButton === 'work-order-btn' ? 'active' : ''}`}
+          onClick={() => handleButtonClick('work-order-btn', '/work-order')}
+        >
+          Work Order <span className="btn-badge new">New</span>
+        </button>
+        
+        <button 
+          className="profile-btn" 
+          onClick={handleProfileClick}
+          type="button"
+        >
+          👤 My Profile
+        </button>
+      </div>
+    </header>
+  );
 };
 
 export default Header;
