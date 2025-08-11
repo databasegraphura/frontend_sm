@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import './Dashboard.css';
 
-// This component will render the individual statistic cards
 const StatCard = ({ title, value, icon, color }) => (
   <div className={`stat-card ${color}`}>
-    <div>
-      <div>{title}</div>
-      <div>{value}</div>
+    <div className="card-content">
+      <div className="card-title">{title}</div>
+      <div className="card-value">{value}</div>
     </div>
-    <div>{icon}</div>
+    <div className="card-icon">{icon}</div>
   </div>
 );
 
@@ -73,7 +73,7 @@ const Dashboard = () => {
       }
 
       try {
-        const apiUrl = `${process.env.REACT_APP_API_URL}/api/dashboard/stats`;
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/dashboard/stats`;
         const response = await fetch(apiUrl, {
           method: 'GET',
           headers: {
@@ -87,8 +87,8 @@ const Dashboard = () => {
           throw new Error(errorData.message || `HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json();
-        setStats(data.data);
+        const responseData  = await response.json();
+        setData(responseData.data);
       } catch (err) {
         setError(err.message);
       } finally {

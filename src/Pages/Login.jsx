@@ -53,7 +53,7 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -91,7 +91,7 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
         onLogin(data.user, data.token);
       }
 
-      navigate('/dashboard');
+      // navigate('/dashboard');
 
     } catch (err) {
       setError(err.message);

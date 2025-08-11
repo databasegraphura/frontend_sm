@@ -24,12 +24,15 @@ const TotalProjects = () => {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects.');
-        }
-
         const data = await response.json();
-        setProjects(data.data.projects || []);
+
+        if (response.ok && data.status === 'success') {
+          // --- FIX: Access the correct data path ---
+          setProjects(data.data.data || []);
+        } else {
+          throw new Error(data.message || 'Failed to fetch projects.');
+        }
+        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -86,10 +89,10 @@ const TotalProjects = () => {
 
           <div className={`project-content ${expandedProjects[project._id] ? 'expanded' : ''}`}>
             <div className="client-form">
-              {/* Form fields... */}
+              {/* Added the missing fields from your API response */}
               <div className="form-group"><label>Client Name</label><input type="text" value={project.clientName || ''} readOnly /></div>
-              <div className="form-group"><label>Designation</label><input type="text" value={project.designation || ''} readOnly /></div>
-              <div className="form-group"><label>Contact No.</label><input type="tel" value={project.contactNumber || ''} readOnly /></div>
+              <div className="form-group"><label>Designation</label><input type="text" value={project.designation || 'N/A'} readOnly /></div>
+              <div className="form-group"><label>Contact No.</label><input type="tel" value={project.contactNumber || 'N/A'} readOnly /></div>
               <div className="form-group"><label>Email ID</label><input type="email" value={project.email || ''} readOnly /></div>
               <div className="form-group"><label>Start Date</label><input type="date" value={formatDate(project.startDate)} readOnly /></div>
               <div className="form-group"><label>End Date</label><input type="date" value={formatDate(project.endDate)} readOnly /></div>
@@ -143,6 +146,7 @@ const TotalProjects = () => {
   );
 };
 
+// The AssignTaskModal component remains the same, no changes needed here.
 const AssignTaskModal = ({ project, onClose }) => {
   const [employees, setEmployees] = useState([]);
   const [taskAssignments, setTaskAssignments] = useState({});
@@ -171,7 +175,7 @@ const AssignTaskModal = ({ project, onClose }) => {
     const tasksToAssign = Object.entries(taskAssignments).map(([name, userId]) => ({ name, userId }));
 
     try {
-      const apiUrl = `${import.meta.env.VITE_API_URL}/api/projects/${project._id}/assign-task`;
+      const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/projects/${project._id}/assign-task`;
       await fetch(apiUrl, {
         method: 'PATCH',
         headers: {

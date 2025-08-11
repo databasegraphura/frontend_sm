@@ -4,8 +4,8 @@ import './App.css';
 
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
-import LoginPage from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import LoginPage from './Pages/Login';
+import Dashboard from './Pages/Dashboard';
 import TotalProjects from './pages/TotalProjects';
 import WorkingProjects from './pages/WorkingProjects';
 import TeamMembers from './pages/TeamMembers';
@@ -50,44 +50,45 @@ const MainLayout = ({ user, onLogout, children }) => {
 };
 
 // --- Role-based Route Components ---
-const ManagerRoutes = () => (
+const ManagerRoutes = ({ user }) => (
   <Routes>
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/total-projects" element={<TotalProjects />} />
-    <Route path="/working-projects" element={<WorkingProjects />} />
-    <Route path="/team-members" element={<TeamMembers />} />
-    <Route path="/manager-report" element={<ManagerReport />} />
-    <Route path="/team-report" element={<TeamReport />} />
-    <Route path="/received-data" element={<ReceivedData />} />
-    <Route path="/transfer-data" element={<TransferDataToFDBK />} />
-    <Route path="/review" element={<Review />} />
-    <Route path="/salary" element={<Salary />} />
-    <Route path="/proposals" element={<Proposals />} />
-    <Route path="/custom-plan" element={<CustomPlan />} />
-    <Route path="/work-order" element={<WorkOrder />} />
-    <Route path="/edit-profile" element={<EditProfile />} />
-    <Route path="/settings" element={<Settings />} />
+    <Route path="/dashboard" element={<Dashboard user={user} />} />
+    <Route path="/total-projects" element={<TotalProjects user={user} />} />
+    <Route path="/working-projects" element={<WorkingProjects user={user} />} />
+    <Route path="/team-members" element={<TeamMembers user={user} />} />
+    <Route path="/manager-report" element={<ManagerReport user={user} />} />
+    <Route path="/team-report" element={<TeamReport user={user} />} />
+    <Route path="/received-data" element={<ReceivedData user={user} />} />
+    <Route path="/transfer-data" element={<TransferDataToFDBK user={user} />} />
+    <Route path="/review" element={<Review user={user} />} />
+    <Route path="/salary" element={<Salary user={user} />} />
+    <Route path="/proposals" element={<Proposals user={user} />} />
+    <Route path="/custom-plan" element={<CustomPlan user={user} />} />
+    <Route path="/work-order" element={<WorkOrder user={user} />} />
+    <Route path="/edit-profile" element={<EditProfile user={user} />} />
+    <Route path="/settings" element={<Settings user={user} />} />
     <Route path="*" element={<Navigate to="/dashboard" />} />
   </Routes>
 );
 
-const TeamLeadRoutes = () => (
+const TeamLeadRoutes = ({ user }) => (
   <Routes>
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/projects" element={<TotalProjects />} />
-    <Route path="/team" element={<TeamMembers />} />
-    <Route path="/edit-profile" element={<EditProfile />} />
+    <Route path="/dashboard" element={<Dashboard user={user} />} />
+    <Route path="/projects" element={<TotalProjects user={user} />} />
+    <Route path="/team" element={<TeamMembers user={user} />} />
+    <Route path="/edit-profile" element={<EditProfile user={user} />} />
     <Route path="*" element={<Navigate to="/dashboard" />} />
   </Routes>
 );
 
-const ExecutiveRoutes = () => (
+const ExecutiveRoutes = ({ user }) => (
   <Routes>
-    <Route path="/my-projects" element={<MyProjects />} />
-    <Route path="/completed-projects" element={<CompletedProjects />} />
-    <Route path="/my-payout" element={<MyPayout />} />
-    <Route path="/edit-profile" element={<EditProfile />} />
-    <Route path="*" element={<Navigate to="/my-projects" />} />
+    <Route path="/dashboard" element={<Dashboard user={user} />} /> {/* Added dashboard for default nav */}
+    <Route path="/my-projects" element={<MyProjects user={user} />} />
+    <Route path="/completed-projects" element={<CompletedProjects user={user} />} />
+    <Route path="/my-payout" element={<MyPayout user={user} />} />
+    <Route path="/edit-profile" element={<EditProfile user={user} />} />
+    <Route path="*" element={<Navigate to="/dashboard" />} />
   </Routes>
 );
 
@@ -135,14 +136,14 @@ function App() {
     setIsAuthenticated(false);
   };
 
-  const renderRoutesForRole = (role) => {
-    switch (role) {
+  const renderRoutesForRole = (user) => {
+    switch (user.role) {
       case 'manager':
-        return <ManagerRoutes />;
+        return <ManagerRoutes user={user} />;
       case 'team_lead':
-        return <TeamLeadRoutes />;
+        return <TeamLeadRoutes user={user} />;
       case 'executive':
-        return <ExecutiveRoutes />;
+        return <ExecutiveRoutes user={user} />;
       default:
         return <Navigate to="/login" />;
     }
@@ -164,7 +165,7 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <MainLayout user={user} onLogout={handleLogout}>
-                {user && renderRoutesForRole(user.role)}
+                {user && renderRoutesForRole(user)}
               </MainLayout>
             </ProtectedRoute>
           }
