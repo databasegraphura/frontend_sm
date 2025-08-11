@@ -27,8 +27,7 @@ const TotalProjects = () => {
         const data = await response.json();
 
         if (response.ok && data.status === 'success') {
-          // --- FIX: Access the correct data path ---
-          setProjects(data.data.data || []);
+          setProjects(data.data.projects || []);
         } else {
           throw new Error(data.message || 'Failed to fetch projects.');
         }

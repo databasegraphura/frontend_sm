@@ -9,7 +9,7 @@ const CompletedProjects = () => {
     const fetchProjects = async () => {
       const token = localStorage.getItem('authToken');
       try {
-        const apiUrl = `${process.env.REACT_APP_API_URL}/api/executive/completed-projects`;
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/executive/completed-projects`;
         const response = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
         if (!response.ok) throw new Error('Failed to fetch completed projects.');
         const data = await response.json();

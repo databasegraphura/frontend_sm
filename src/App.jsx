@@ -142,7 +142,7 @@ function App() {
         return <ManagerRoutes user={user} />;
       case 'team_lead':
         return <TeamLeadRoutes user={user} />;
-      case 'executive':
+      case 'executive' || 'sales_executive':
         return <ExecutiveRoutes user={user} />;
       default:
         return <Navigate to="/login" />;

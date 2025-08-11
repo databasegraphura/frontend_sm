@@ -38,7 +38,7 @@ const ManagerReport = () => {
         }
 
         const data = await response.json();
-        setReportData(data.data);
+        setReportData(data.teamReport);
       } catch (err) {
         setError(err.message);
       } finally {
