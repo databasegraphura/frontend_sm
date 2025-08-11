@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
+// Main Component for the Login/Signup page
 const LoginPage = ({ onLogin }) => {
   const [isLoginView, setIsLoginView] = useState(true);
 
   return (
-    <div className="auth-page"> 
+    <div className="auth-page">
       <div className="auth-container">
         <div className="auth-sidebar">
           <div className="auth-sidebar-header">
@@ -49,11 +50,12 @@ const LoginPage = ({ onLogin }) => {
   );
 };
 
+// Login Form Component
 const LoginForm = ({ onLogin, switchToSignup }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,9 +68,6 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
     setError('');
 
     try {
-      // console.log(import.meta.env.VITE_REACT_APP_API_URL);
-      // console.log("Test var:", import.meta.env.VITE_TEST_VAR);
-
       const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/auth/login`;
 
       const response = await fetch(apiUrl, {
@@ -88,10 +87,14 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
       }
 
       if (onLogin) {
-        onLogin(data.user, data.token);
+        onLogin(data.data.user, data.token);
+        // Navigate based on the returned user role
+        if (data.data.user.role === 'executive') {
+          navigate('/my-projects');
+        } else {
+          navigate('/dashboard');
+        }
       }
-
-      // navigate('/dashboard');
 
     } catch (err) {
       setError(err.message);
@@ -154,6 +157,7 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
   );
 };
 
+// Signup Form Component
 const SignupForm = ({ switchToLogin }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -185,6 +189,7 @@ const SignupForm = ({ switchToLogin }) => {
     setSuccess('');
 
     try {
+      // Construct the full API URL from the .env variable
       const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/auth/signup`;
 
       const response = await fetch(apiUrl, {
