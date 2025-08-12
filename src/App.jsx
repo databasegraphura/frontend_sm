@@ -14,7 +14,7 @@ import TeamMembers from './Pages/TeamMembers.jsx';
 import ManagerReport from './Pages/ManagerReport.jsx';
 import ReceivedData from './Pages/ReceivedData.jsx';
 import TransferDataToFDBK from './Pages/TransferDataToFDBK.jsx';
-import Review from './pages/Review.jsx';
+import Review from './Pages/Review.jsx';
 import Salary from './Pages/Salary.jsx';
 import MyProjects from './Pages/MyProjects.jsx';
 import CompletedProjects from './Pages/CompletedProjects.jsx';
@@ -29,9 +29,7 @@ import MyTeam from './Pages/MyTeam.jsx';
 import TlReview from './Pages/TlReview.jsx';
 import Help from './Pages/Help.jsx';
 
-// --- Protected Route Component ---
-// This component checks if the user is authenticated.
-// If not, it redirects them to the login page. This is a standard guard clause.
+
 const ProtectedRoute = ({ isAuthenticated, children }) => {
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -39,9 +37,7 @@ const ProtectedRoute = ({ isAuthenticated, children }) => {
   return children;
 };
 
-// --- Main Layout Component ---
-// This component wraps the main content of the application, including the sidebar and header.
-// It receives the role-specific routes as `children`.
+
 const MainLayout = ({ user, onLogout, children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
