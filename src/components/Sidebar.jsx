@@ -41,12 +41,18 @@ const navConfig = {
     team_lead: [
         { label: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
         { label: 'Projects', path: '/total-projects', icon: 'chart' },
-        { label: 'Team', path: '/team', icon: 'users' },
+        { label: 'My Team', path: '/team', icon: 'users' },
+        { label: 'Tranfer Projects', path: '/transfer-data', icon: 'users' },
+        { label: 'Team Report', path: '/team-report', icon: 'document' },
+        { label: 'Reviews', path: '/tlreview', icon: 'document' },
+        { label: 'Help', path: '/help', icon: 'check' },
     ],
     executive: [
+        { label: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
         { label: 'My Projects', path: '/my-projects', icon: 'clock' },
         { label: 'Completed Projects', path: '/completed-projects', icon: 'check' },
         { label: 'My Payout', path: '/my-payout', icon: 'dollar' },
+        { label: 'Help', path: '/help', icon: 'check' },
     ]
 };
 

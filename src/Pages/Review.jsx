@@ -87,19 +87,29 @@ const Review = () => {
       setIsLoading(false);
       return;
     }
+  
     try {
       const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/reviews`;
-      const response = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
-      if (!response.ok) throw new Error('Failed to fetch reviews.');
+      const response = await fetch(apiUrl, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to fetch reviews.');
+      }
+  
       const data = await response.json();
-
-      setReviews(data.data.reviews.filter(r => r.status === 'pending'));
+  
+      const reviewsArray = data?.data?.reviews ?? [];
+      setReviews(reviewsArray.filter(r => r.status === 'pending'));
+  
     } catch (err) {
       setError(err.message);
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   useEffect(() => {
     fetchReviews();

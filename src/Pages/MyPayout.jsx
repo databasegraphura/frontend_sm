@@ -14,7 +14,7 @@ const MyPayout = () => {
                 const response = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
                 if (!response.ok) throw new Error('Failed to fetch payout history.');
                 const data = await response.json();
-                setPayouts(data.data.payouts || []);
+                setPayouts(data.data.payout.salaryHistory || []);
             } catch (err) {
                 setError(err.message);
             } finally {
