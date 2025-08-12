@@ -46,7 +46,7 @@ const MainLayout = ({ user, onLogout, children }) => {
     <div className="layout">
       <Sidebar isOpen={sidebarOpen} user={user} onLogout={onLogout} />
       <div className={`main ${!sidebarOpen ? 'expanded' : ''}`}>
-        <Header onToggleSidebar={toggleSidebar} />
+        <Header onToggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
         <div className="content">
           {children} {/* This is where the role-specific <Routes> component will be rendered */}
         </div>

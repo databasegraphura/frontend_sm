@@ -10,20 +10,31 @@
 }
 
 .sidebar-toggle { 
-  background: none; 
+  background: #3b82f6; /* Blue background */
   border: none; 
   cursor: pointer; 
   display: flex; 
-  flex-direction: column; 
-  gap: 4px; 
-  padding: 5px; 
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white; /* White icon color */
+  transition: all 0.3s ease; 
 }
 
-.sidebar-toggle span { 
-  width: 20px; 
-  height: 2px; 
-  background: #374151; 
-  transition: 0.3s; 
+.sidebar-toggle:hover {
+  background: #2563eb;
+}
+
+/* This is the key change */
+.sidebar-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+/* This is the key change */
+.sidebar-toggle.closed svg {
+  transform: rotate(180deg);
 }
 
 .header-actions { 
@@ -75,18 +86,18 @@
   color: white;
   border: none;
   padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
+  border-radius: 6px; 
+  cursor: pointer; 
+  font-size: 14px; 
   font-weight: 500;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: center; 
+  gap: 8px; 
   transition: background-color 0.3s ease;
 }
 
 .profile-btn:hover {
-  background: #2563eb;
+  background: #2563eb; 
 }
 
 /* Responsive Design */
@@ -110,4 +121,4 @@
     padding: 8px 12px;
     font-size: 12px;
   }
-} 
+}
