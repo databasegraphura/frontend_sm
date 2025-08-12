@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import './ManagerReport.css';
+import './ManagerReport.css';
 
 const StatCard = ({ label, value, icon, color }) => (
   <div className={`stat-card ${color}`}>
@@ -12,7 +12,7 @@ const StatCard = ({ label, value, icon, color }) => (
 );
 
 const ManagerReport = () => {
-  const [reportData, setReportData] = useState(null);
+  const [reportData, setReportData] = useState({ stats: {}, teamMemberProjects: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +38,8 @@ const ManagerReport = () => {
         }
 
         const data = await response.json();
-        setReportData(data.teamReport);
+        // Correctly set the state from the nested response object
+        setReportData(data.data.teamReport || { stats: {}, teamMemberProjects: [] });
       } catch (err) {
         setError(err.message);
       } finally {
@@ -64,22 +65,11 @@ const ManagerReport = () => {
     return new Date(dateString).toLocaleDateString();
   };
 
-  const downloadOptions = [
-    { label: 'Download Logo', icon: '⬇' },
-    { label: 'Client References', icon: '⬇' },
-    { label: 'Download Brochure', icon: '⬇' },
-    { label: 'Download Content', icon: '⬇' },
-    { label: 'Download Client Images', icon: '⬇' },
-    { label: 'Download Client Videos', icon: '⬇' },
-    { label: 'Download Company Details', icon: '⬇' },
-    { label: 'Other Details', icon: '⬇' }
-  ];
+  // Destructure after ensuring reportData is not null
+  const { stats, teamMemberProjects } = reportData;
 
   if (isLoading) return <div className="loading-message">Loading Manager Report...</div>;
   if (error) return <div className="error-message">{error}</div>;
-  if (!reportData) return <div className="no-data-message">No report data available.</div>;
-
-  const { stats, teamMemberProjects } = reportData;
 
   return (
     <div className="manager-report-page">
@@ -133,14 +123,9 @@ const ManagerReport = () => {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2 className="modal-title">{selectedCompany}</h2>
             <div className="download-options">
-              {downloadOptions.map((option, idx) => (
-                <div key={idx} className="download-row">
-                  <div className="download-option">
-                    <span className="download-label">{option.label}</span>
-                    <span className="download-icon">{option.icon}</span>
-                  </div>
-                </div>
-              ))}
+              {/* Dummy download options */}
+              <div className="download-row"><div className="download-option"><span className="download-label">Download Logo</span><span className="download-icon">⬇</span></div></div>
+              <div className="download-row"><div className="download-option"><span className="download-label">Client References</span><span className="download-icon">⬇</span></div></div>
             </div>
             <button className="close-btn" onClick={handleCloseModal}>Close</button>
           </div>

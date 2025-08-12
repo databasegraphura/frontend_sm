@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './TeamReport.css';
 
-const TeamReport = ({ user }) => { // Receive user prop
+const TeamReport = ({ user }) => { 
   const [reportData, setReportData] = useState([]);
   const [teamLeaders, setTeamLeaders] = useState([]);
   const [memberProjects, setMemberProjects] = useState([]);
@@ -25,8 +25,40 @@ const TeamReport = ({ user }) => { // Receive user prop
       try {
         const reportRes = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/api/reports/team-report`, { headers: { 'Authorization': `Bearer ${token}` } });
         if (!reportRes.ok) throw new Error('Failed to fetch team report.');
-        const reportData = await reportRes.json();
-        setReportData(reportData.data.teamReport || []);
+        const responseJson = await reportRes.json();
+        const projects = responseJson.data.teamReport?.teamMemberProjects || [];
+
+        const memberStats = projects.reduce((acc, project) => {
+          if (!project.assignedTo || !project.assignedTo._id) {
+            return acc;
+          }
+
+          const userId = project.assignedTo._id;
+          const name = project.assignedTo.name;
+
+          if (!acc[userId]) {
+            acc[userId] = {
+              userId,
+              name,
+              currentProjects: 0,
+              completedProjects: 0,
+              delayedProjects: 0,
+            };
+          }
+
+          const today = new Date();
+          const endDate = new Date(project.endDate);
+
+          if (endDate < today) {
+            acc[userId].completedProjects += 1;
+          } else {
+            acc[userId].currentProjects += 1;
+          }
+
+          return acc;
+        }, {});
+
+        setReportData(Object.values(memberStats));
 
         if (user.role === 'manager') {
           const leadersRes = await fetch(`${import.meta.env.VITE_REACT_APP_API_URL}/api/users?role=team_lead`, { headers: { 'Authorization': `Bearer ${token}` } });
