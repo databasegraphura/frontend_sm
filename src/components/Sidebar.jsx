@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Sidebar.css';
-import '../Assets/default-avatar.png';
+import avatar from '../Assets/default-avatar.png';
+import logo from '../Assets/logo.png';
 
 // A helper component to render different SVG icons dynamically
 const Icon = ({ type }) => {
@@ -71,7 +72,7 @@ const Sidebar = ({ isOpen, user, onLogout }) => {
         <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
             <div className="sidebar-content">
                 <div className="logo-section">
-                    <img src="../Assets/logo.png" alt="GRAPHURA" className="logo-image" />
+                    <img src={logo} alt="GRAPHURA" className="logo-image" />
                 </div>
 
                 <div className="profile-section">
@@ -82,7 +83,7 @@ const Sidebar = ({ isOpen, user, onLogout }) => {
         alt="avatar"
         onError={(e) => {
           e.target.onerror = null;
-          e.target.src = "/Assets/default-avatar.png"; // fallback image path
+          e.target.src = {avatar}; // fallback image path
         }}
       />
     ) : (
