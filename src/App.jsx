@@ -98,7 +98,7 @@ function App() {
                     <Route
                         path="/*"
                         element={<MainLayout user={user} onLogout={handleLogout}>
-                            {user.role === 'manager' || user.role === 'team_lead' ? (
+                            {user.role === 'manager' || user.role === 'teamlead' ? (
                                 <Routes>
                                     <Route path="/dashboard" element={<Dashboard />} />
                                     <Route path="/total-projects" element={<TotalProjects />} />
@@ -116,7 +116,7 @@ function App() {
                                     <Route path="/settings" element={<Settings />} />
                                     <Route path="*" element={<Navigate to="/dashboard" />} />
                                 </Routes>
-                            ) : user.role === 'executive' ? (
+                            ) : user.role === 'executive' || user.role === 'sales_executive'  ? (
                                 <Routes>
                                     <Route path="/my-projects" element={<MyProjects />} />
                                     <Route path="/completed-projects" element={<CompletedProjects />} />
@@ -124,7 +124,7 @@ function App() {
                                     <Route path="/edit-profile" element={<EditProfile />} />
                                     <Route path="*" element={<Navigate to="/my-projects" />} />
                                 </Routes>
-                            ) : null}
+                            ) :  null}
                         </MainLayout>}
                     />
                 ) : (

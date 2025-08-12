@@ -40,7 +40,7 @@ const navConfig = {
     ],
     team_lead: [
         { label: 'Dashboard', path: '/dashboard', icon: 'dashboard' },
-        { label: 'Projects', path: '/projects', icon: 'chart' },
+        { label: 'Projects', path: '/total-projects', icon: 'chart' },
         { label: 'Team', path: '/team', icon: 'users' },
     ],
     executive: [
