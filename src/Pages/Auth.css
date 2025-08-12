@@ -22,7 +22,7 @@
 /* Sidebar Styling */
 .auth-sidebar {
     width: 45%;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    background: #4E73DF;
     color: white;
     padding: 50px;
     display: flex;
@@ -30,23 +30,26 @@
     justify-content: space-between;
 }
 
-.auth-sidebar-header .auth-logo {
+.auth-sidebar-header {
     font-size: 28px;
     font-weight: 700;
     display: flex;
     align-items: center;
+    
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .auth-logo-icon {
-    margin-right: 12px;
-    font-size: 32px;
+  width: 400px;   /* Adjust as needed */
+  height: auto;  /* Keeps proportions */
 }
 
-.auth-sidebar-header .auth-tagline {
-    font-size: 16px;
-    margin-top: 8px;
-    opacity: 0.8;
-}
+
 
 .auth-features {
     margin-top: 50px;

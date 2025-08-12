@@ -1,16 +1,16 @@
-/* Sidebar Styles */
+/* Sidebar Container */
 .sidebar {
   width: 270px;
   height: 100vh;
   background: linear-gradient(180deg, #3b5998 0%, #4169E1 50%, #5a7bc8 100%);
-  color: #ffffff;
+  color: #fff;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 1000;
-  transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease-in-out;
 }
 
 .sidebar.closed {
@@ -21,22 +21,21 @@
   transform: translateX(0);
 }
 
-/* Added a wrapper for content to manage scrolling and layout */
+/* Sidebar Scrollable Content */
 .sidebar-content {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow-y: auto;
+}
 
-  /* Custom scrollbar for a cleaner look */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
+.sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
 
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
-  }
+.sidebar-content::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
 }
 
 /* Logo Section */
@@ -44,7 +43,6 @@
   padding: 25px 20px;
   text-align: center;
   flex-shrink: 0;
-  /* Prevents this section from shrinking */
 }
 
 .logo-image {
@@ -55,7 +53,8 @@
 
 /* Profile Section */
 .profile-section {
-  padding: 15px 20px;
+  background: transparent;
+  padding: 15px;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -67,28 +66,29 @@
 .avatar {
   width: 45px;
   height: 45px;
-  background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  color: #ffffff;
-  overflow: hidden;
-  /* Ensures avatar image fits */
+  background: transparent; /* Removes any background color */
 }
 
 .avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  background: transparent;
 }
 
+/* Profile Info */
 .profile-info .name {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 3px;
-  color: #ffffff;
+  color: #fff;
   line-height: 1.2;
 }
 
@@ -98,10 +98,9 @@
   font-weight: 400;
 }
 
-/* Navigation */
+/* Navigation Links */
 .nav {
   flex-grow: 1;
-  /* Allows this section to fill available space */
   padding: 15px 0;
 }
 
@@ -110,10 +109,10 @@
   align-items: center;
   padding: 14px 25px;
   margin: 2px 0;
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
-  transition: background-color 0.2s ease, border-left-color 0.2s ease;
   border-left: 4px solid transparent;
+  transition: background-color 0.2s ease, border-left-color 0.2s ease;
 }
 
 .nav-link:hover {
@@ -123,7 +122,7 @@
 
 .nav-link.active {
   background: rgba(255, 255, 255, 0.2);
-  border-left-color: #ffffff;
+  border-left-color: #fff;
   font-weight: 600;
 }
 
@@ -158,7 +157,7 @@
   background-color: rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   text-align: left;
   transition: background-color 0.2s ease;
