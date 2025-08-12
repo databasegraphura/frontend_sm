@@ -7,9 +7,10 @@ const TransferDataToFDBK = () => {
   const [error, setError] = useState('');
   const [expandedCompanies, setExpandedCompanies] = useState({});
 
-  useEffect(() => {
+  
     const fetchReceivedData = async () => {
-      const token = localStorage.getItem('authToken');
+      setIsLoading(true);
+      const token = localStorage.getItem('token');
       if (!token) {
         setError("Authentication required. Please log in.");
         setIsLoading(false);
@@ -34,7 +35,8 @@ const TransferDataToFDBK = () => {
         setIsLoading(false);
       }
     };
-
+    
+    useEffect(() => {
     fetchReceivedData();
   }, []);
 

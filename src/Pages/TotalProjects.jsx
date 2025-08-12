@@ -6,6 +6,7 @@ const TotalProjects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [expandedProjects, setExpandedProjects] = useState({});
+  const [isFirstSectionExpanded, setIsFirstSectionExpanded] = useState(false);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -46,6 +47,10 @@ const TotalProjects = () => {
     setExpandedProjects(prev => ({ ...prev, [projectId]: !prev[projectId] }));
   };
 
+  const toggleFirstSection = () => {
+    setIsFirstSectionExpanded(!isFirstSectionExpanded);
+  };
+
   const handleAssignProjectClick = (project) => {
     setSelectedProject(project);
     setIsServiceModalOpen(true);
@@ -54,6 +59,11 @@ const TotalProjects = () => {
   const handleCloseServiceModal = () => {
     setIsServiceModalOpen(false);
     setSelectedProject(null);
+  };
+
+  const handleActionClick = (action, service) => {
+    console.log(`Clicked ${action} for ${service}`);
+    // Dummy handler for all action buttons
   };
 
   const formatDate = (dateString) => {
@@ -72,6 +82,127 @@ const TotalProjects = () => {
   return (
     <div className="total-projects">
       <h1 className="page-title">Total Projects</h1>
+      
+      {/* First Section: "1. Renu Sharma" */}
+      <div className="project-section">
+        <div
+          className={`project-header ${isFirstSectionExpanded ? 'expanded' : ''}`}
+          onClick={toggleFirstSection}
+        >
+          <div className="project-title">
+            <span className="project-number">1.</span>
+            <span className="company-name">Renu Sharma</span>
+            <span className="invoice-text">Invoice no.</span>
+            <span className="invoice-number">INV-2025-101</span>
+          </div>
+          <div className="project-toggle">{isFirstSectionExpanded ? '▲' : '▼'}</div>
+        </div>
+
+        <div className={`project-content ${isFirstSectionExpanded ? 'expanded' : ''}`}>
+          <div className="project-details-card">
+            <div className="client-form">
+              <div className="form-column">
+                <div className="form-group">
+                  <label>Client Name</label>
+                  <input type="text" value="Renu Sharma" readOnly />
+                </div>
+                <div className="form-group">
+                  <label>Contact no.</label>
+                  <input type="tel" value="+91 98765 43210" readOnly />
+                </div>
+                <div className="form-group">
+                  <label>Start Date</label>
+                  <input type="date" value="2025-01-15" readOnly />
+                </div>
+                <div className="form-group">
+                  <label>Service name</label>
+                  <input type="text" value="Website Design" readOnly />
+                </div>
+              </div>
+              <div className="form-column">
+                <div className="form-group">
+                  <label>Designation</label>
+                  <input type="text" value="Project Manager" readOnly />
+                </div>
+                <div className="form-group">
+                  <label>Email_id</label>
+                  <input type="email" value="renu.sharma@example.com" readOnly />
+                </div>
+                <div className="form-group">
+                  <label>End Date</label>
+                  <input type="date" value="2025-03-30" readOnly />
+                </div>
+                <div className="button-container">
+                  <button className="assign-project-btn" onClick={() => handleAssignProjectClick({
+                    companyName: "Renu Sharma",
+                    serviceName: "Website Design"
+                  })}>Assign Project</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="company-details">
+              <h3>Company Details</h3>
+              <div className="service-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Service</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Logo</td>
+                      <td>
+                        <div className="action-buttons">
+                          <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Logo')}>Message</button>
+                          <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Logo')}>Video</button>
+                          <button className="action-btn grey" onClick={() => handleActionClick('Download', 'Logo')}>Download</button>
+                          <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Logo')}>Upload</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Banner</td>
+                      <td>
+                        <div className="action-buttons">
+                          <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Banner')}>Message</button>
+                          <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Banner')}>Video</button>
+                          <button className="action-btn blue" onClick={() => handleActionClick('Video/Audio', 'Banner')}>Video / Audio</button>
+                          <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Banner')}>Upload</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Bold text column</td>
+                      <td>
+                        <div className="action-buttons">
+                          <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Bold text column 1')}>Message</button>
+                          <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Bold text column 1')}>Video</button>
+                          <button className="action-btn blue" onClick={() => handleActionClick('Video/Audio', 'Bold text column 1')}>Video / Audio</button>
+                          <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Bold text column 1')}>Upload</button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Bold text column</td>
+                      <td>
+                        <div className="action-buttons">
+                          <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Bold text column 2')}>Message</button>
+                          <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Bold text column 2')}>Video</button>
+                          <button className="action-btn blue" onClick={() => handleActionClick('Video/Audio', 'Bold text column 2')}>Video / Audio</button>
+                          <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Bold text column 2')}>Upload</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {projects.length > 0 ? projects.map((project, index) => (
         <div key={project._id} className="project-section">
@@ -79,57 +210,113 @@ const TotalProjects = () => {
             className={`project-header ${expandedProjects[project._id] ? 'expanded' : ''}`}
             onClick={() => toggleProject(project._id)}
           >
-            <div className="project-title">{index + 1}. {project.companyName || 'N/A'}</div>
-            <div className="project-header-right">
-              <div className="project-invoice">Invoice: {project.invoiceNumber || 'N/A'}</div>
-              <div className="project-toggle">{expandedProjects[project._id] ? '▲' : '▼'}</div>
+            <div className="project-title">
+              <span className="project-number">{index + 2}.</span>
+              <span className="company-name">{project.companyName || 'N/A'}</span>
+              <span className="invoice-text">Invoice no.</span>
+              <span className="invoice-number">{project.invoiceNumber || 'N/A'}</span>
             </div>
+            <div className="project-toggle">{expandedProjects[project._id] ? '▲' : '▼'}</div>
           </div>
 
           <div className={`project-content ${expandedProjects[project._id] ? 'expanded' : ''}`}>
-            <div className="client-form">
-              {/* Added the missing fields from your API response */}
-              <div className="form-group"><label>Client Name</label><input type="text" value={project.clientName || ''} readOnly /></div>
-              <div className="form-group"><label>Designation</label><input type="text" value={project.designation || 'N/A'} readOnly /></div>
-              <div className="form-group"><label>Contact No.</label><input type="tel" value={project.contactNumber || 'N/A'} readOnly /></div>
-              <div className="form-group"><label>Email ID</label><input type="email" value={project.email || ''} readOnly /></div>
-              <div className="form-group"><label>Start Date</label><input type="date" value={formatDate(project.startDate)} readOnly /></div>
-              <div className="form-group"><label>End Date</label><input type="date" value={formatDate(project.endDate)} readOnly /></div>
-              <div className="form-group full-width"><label>Service Name</label><input type="text" value={project.serviceName || ''} readOnly /></div>
-            </div>
+            <div className="project-details-card">
+              <div className="client-form">
+                <div className="form-column">
+                  <div className="form-group">
+                    <label>Client Name</label>
+                    <input type="text" value={project.clientName || ''} readOnly />
+                  </div>
+                  <div className="form-group">
+                    <label>Contact no.</label>
+                    <input type="tel" value={project.contactNumber || 'N/A'} readOnly />
+                  </div>
+                  <div className="form-group">
+                    <label>Start Date</label>
+                    <input type="date" value={formatDate(project.startDate)} readOnly />
+                  </div>
+                  <div className="form-group">
+                    <label>Service name</label>
+                    <input type="text" value={project.serviceName || ''} readOnly />
+                  </div>
+                </div>
+                <div className="form-column">
+                  <div className="form-group">
+                    <label>Designation</label>
+                    <input type="text" value={project.designation || 'N/A'} readOnly />
+                  </div>
+                  <div className="form-group">
+                    <label>Email_id</label>
+                    <input type="email" value={project.email || ''} readOnly />
+                  </div>
+                  <div className="form-group">
+                    <label>End Date</label>
+                    <input type="date" value={formatDate(project.endDate)} readOnly />
+                  </div>
+                  <div className="button-container">
+                    <button className="assign-project-btn" onClick={() => handleAssignProjectClick(project)}>Assign Project</button>
+                  </div>
+                </div>
+              </div>
 
-            <button className="assign-project-btn" onClick={() => handleAssignProjectClick(project)}>Assign Project Tasks</button>
-
-            <div className="company-details">
-              <h3>Service Tasks</h3>
-              <div className="service-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Service Task</th>
-                      <th>Assigned To</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {project.tasks && project.tasks.length > 0 ? project.tasks.map(task => (
-                      <tr key={task._id}>
-                        <td>{task.name}</td>
-                        <td>{task.assignedTo ? task.assignedTo.name : 'Unassigned'}</td>
-                        <td><span className={`status-badge status-${task.status?.toLowerCase()}`}>{task.status}</span></td>
+              <div className="company-details">
+                <h3>Company Details</h3>
+                <div className="service-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Service</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Logo</td>
                         <td>
                           <div className="action-buttons">
-                            <button className="action-btn blue">Details</button>
-                            <button className="action-btn green">Upload</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Logo')}>Message</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Logo')}>Video</button>
+                            <button className="action-btn grey" onClick={() => handleActionClick('Download', 'Logo')}>Download</button>
+                            <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Logo')}>Upload</button>
                           </div>
                         </td>
                       </tr>
-                    )) : (
-                      <tr><td colSpan="4">No tasks assigned for this project yet.</td></tr>
-                    )}
-                  </tbody>
-                </table>
+                      <tr>
+                        <td>Banner</td>
+                        <td>
+                          <div className="action-buttons">
+                            <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Banner')}>Message</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Banner')}>Video</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Video/Audio', 'Banner')}>Video / Audio</button>
+                            <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Banner')}>Upload</button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Bold text column</td>
+                        <td>
+                          <div className="action-buttons">
+                            <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Bold text column 1')}>Message</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Bold text column 1')}>Video</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Video/Audio', 'Bold text column 1')}>Video / Audio</button>
+                            <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Bold text column 1')}>Upload</button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Bold text column</td>
+                        <td>
+                          <div className="action-buttons">
+                            <button className="action-btn blue" onClick={() => handleActionClick('Message', 'Bold text column 2')}>Message</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Video', 'Bold text column 2')}>Video</button>
+                            <button className="action-btn blue" onClick={() => handleActionClick('Video/Audio', 'Bold text column 2')}>Video / Audio</button>
+                            <button className="action-btn green" onClick={() => handleActionClick('Upload', 'Bold text column 2')}>Upload</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -174,7 +361,7 @@ const AssignTaskModal = ({ project, onClose }) => {
     const tasksToAssign = Object.entries(taskAssignments).map(([name, userId]) => ({ name, userId }));
 
     try {
-      const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/projects/${project._id}/assign-task`;
+      const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL}/api/projects/${project._id || 'static'}/assign-task`;
       await fetch(apiUrl, {
         method: 'PATCH',
         headers: {
@@ -202,11 +389,11 @@ const AssignTaskModal = ({ project, onClose }) => {
           <table className="service-details-table">
             <thead><tr><th>Service Name</th><th>Assign to</th></tr></thead>
             <tbody>
-              {(project.serviceName || '').split(',').map(name => name.trim()).map((serviceName, idx) => (
+              {(project.serviceName || 'General Task').split(',').map(name => name.trim()).map((serviceName, idx) => (
                 <tr key={idx}>
-                  <td>{serviceName}</td>
+                  <td>{serviceName || 'General Task'}</td>
                   <td>
-                    <select className="employee-select" onChange={(e) => handleSelectChange(serviceName, e.target.value)}>
+                    <select className="employee-select" onChange={(e) => handleSelectChange(serviceName || 'General Task', e.target.value)}>
                       <option value="">Select Employee</option>
                       {employees.map(emp => <option key={emp._id} value={emp._id}>{emp.name} ({emp.role})</option>)}
                     </select>
