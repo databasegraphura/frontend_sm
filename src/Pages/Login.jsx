@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
+import logo from "src/Assets/logo.png";
+import { FaChartLine, FaUsers, FaFileAlt, FaExchangeAlt } from "react-icons/fa";
+import ForgotPasswordModal from '../components/ForgotPasswordModal.jsx';
 
 // Main Component for the Login/Signup page
 const LoginPage = ({ onLogin }) => {
@@ -10,27 +13,25 @@ const LoginPage = ({ onLogin }) => {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-sidebar">
-          <div className="auth-sidebar-header">
-            <div className="auth-logo">
-              <span className="auth-logo-icon">投</span> Graphura
-            </div>
-            <div className="auth-tagline">Sales Management System</div>
+          <div className="auth-logo">
+            <img src={logo} alt="Graphura Logo" className="auth-logo-icon" />
           </div>
+
           <div className="auth-features">
             <div className="auth-feature">
-              <span className="auth-feature-icon">嶋</span>
+              <span className="auth-feature-icon"><FaChartLine /></span>
               <span className="auth-feature-text">Track sales performance in real-time</span>
             </div>
             <div className="auth-feature">
-              <span className="auth-feature-icon">則</span>
+              <span className="auth-feature-icon"><FaUsers /></span>
               <span className="auth-feature-text">Manage your team efficiently</span>
             </div>
             <div className="auth-feature">
-              <span className="auth-feature-icon">投</span>
+              <span className="auth-feature-icon"><FaFileAlt /></span>
               <span className="auth-feature-text">Generate comprehensive reports</span>
             </div>
             <div className="auth-feature">
-              <span className="auth-feature-icon">売</span>
+              <span className="auth-feature-icon"><FaExchangeAlt /></span>
               <span className="auth-feature-text">Seamless data transfer capabilities</span>
             </div>
           </div>
@@ -55,6 +56,7 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -88,7 +90,6 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
 
       if (onLogin) {
         onLogin(data.data.user, data.token);
-        // Navigate based on the returned user role
         if (data.data.user.role === 'executive') {
           navigate('/my-projects');
         } else {
@@ -139,9 +140,21 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
             required
           />
         </div>
-        <div className="form-options">
-          <a href="#" className="forgot-password">Forgot password?</a>
-        </div>
+        <p
+        style={{ cursor: "pointer", color: "blue" }}
+        onClick={() => setShowForgotPassword(true)}
+      >
+        Forgot password?
+      </p>
+
+      {/* Modal */}
+      {showForgotPassword && (
+        <ForgotPasswordModal
+          isOpen={showForgotPassword}
+          onClose={() => setShowForgotPassword(false)}
+        />
+      )}
+
         <button
           type="submit"
           className={`auth-button ${isLoading ? 'loading' : ''}`}
@@ -150,9 +163,16 @@ const LoginForm = ({ onLogin, switchToSignup }) => {
           {isLoading ? 'Signing In...' : 'Sign In'}
         </button>
         <div className="signup-link">
-          Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); switchToSignup(); }}>Sign up</a>
+          Don't have an account?{" "}
+          <a href="#" onClick={(e) => { e.preventDefault(); switchToSignup(); }}>
+            Sign up
+          </a>
         </div>
       </form>
+
+      {showForgotPassword && (
+        <ForgotPasswordModal onClose={() => setShowForgotPassword(false)} />
+      )}
     </>
   );
 };
