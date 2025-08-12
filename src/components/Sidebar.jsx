@@ -71,7 +71,7 @@ const Sidebar = ({ isOpen, user, onLogout }) => {
         <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
             <div className="sidebar-content">
                 <div className="logo-section">
-                    <img src="src\Assets\logo.png" alt="GRAPHURA" className="logo-image" />
+                    <img src="./Assets/logo.png" alt="GRAPHURA" className="logo-image" />
                 </div>
 
                 <div className="profile-section">
