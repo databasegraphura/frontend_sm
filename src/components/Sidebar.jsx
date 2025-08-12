@@ -68,6 +68,11 @@ const Sidebar = ({ isOpen, user, onLogout }) => {
         return role.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
     };
 
+    const formatDepartment = (department) => {
+        if (!department) return '';
+        return department.charAt(0).toUpperCase() + department.slice(1);
+    }
+
     return (
         <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
             <div className="sidebar-content">
@@ -94,6 +99,7 @@ const Sidebar = ({ isOpen, user, onLogout }) => {
   <div className="profile-info">
     <div className="name">{user?.name || "Guest"}</div>
     <div className="role">{formatRole(user?.role)}</div>
+    <div className="department">{formatDepartment(user?.department)}</div>
   </div>
 </div>
 

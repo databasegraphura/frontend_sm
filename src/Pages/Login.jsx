@@ -184,6 +184,7 @@ const SignupForm = ({ switchToLogin }) => {
     email: '',
     refId: '',
     role: 'executive',
+    department: 'sales',
     password: '',
     passwordConfirm: ''
   });
@@ -265,6 +266,13 @@ const SignupForm = ({ switchToLogin }) => {
             <option value="executive">Executive</option>
             <option value="team_lead">Team Lead</option>
             <option value="manager">Manager</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="form-label" htmlFor="department">Department</label>
+          <select id="department" name="department" className="form-input" value={formData.department} onChange={handleInputChange} required>
+            <option value="sales">Sales</option>
+            <option value="management">Management</option>
           </select>
         </div>
         <div className="form-group">

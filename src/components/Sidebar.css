@@ -98,6 +98,14 @@
   font-weight: 400;
 }
 
+.profile-info .department {
+    font-size: 12px;
+    color: #a2b2e8;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 /* Navigation Links */
 .nav {
   flex-grow: 1;
