@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Sidebar.css';
-import avatar from '../Assets/default-avatar.png';
 import logo from '../Assets/logo.png';
+import defaultAvatar from '../Assets/default-avatar.png';
+
 
 // A helper component to render different SVG icons dynamically
 const Icon = ({ type }) => {
@@ -81,28 +82,19 @@ const Sidebar = ({ isOpen, user, onLogout }) => {
                 </div>
 
                 <div className="profile-section">
-  <div className="avatar">
-    {user?.photo && user.photo.trim() !== "" ? (
-      <img
-        src={user.photo}
-        alt="avatar"
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = {avatar}; // fallback image path
-        }}
-      />
-    ) : (
-      <img src="/Assets/default-avatar.png" alt="default avatar" />
-    )}
-  </div>
-
-  <div className="profile-info">
-    <div className="name">{user?.name || "Guest"}</div>
-    <div className="role">{formatRole(user?.role)}</div>
-    <div className="department">{formatDepartment(user?.department)}</div>
-  </div>
-</div>
-
+                    <div className="avatar">
+                        {user?.photo && user.photo !== "default.jpg" ? (
+                            <img src={user.photo} alt="avatar" />
+                        ) : (
+                            <img src={defaultAvatar} alt="default avatar" />
+                        )}
+                    </div>
+                    <div className="profile-info">
+                        <div className="name">{user?.name || "Guest"}</div>
+                        <div className="role">{formatRole(user?.role)}</div>
+                        <div className="department">{formatDepartment(user?.department)}</div>
+                    </div>
+                </div>
 
                 <nav className="nav">
                     {navItems.map((item) => (
