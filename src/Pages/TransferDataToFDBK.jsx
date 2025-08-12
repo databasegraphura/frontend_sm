@@ -10,7 +10,7 @@ const TransferDataToFDBK = () => {
   
     const fetchReceivedData = async () => {
       setIsLoading(true);
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('authToken');
       if (!token) {
         setError("Authentication required. Please log in.");
         setIsLoading(false);
